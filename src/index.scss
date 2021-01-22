@@ -1,0 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+html {
+  font-size: 16px;
+}
+input,
+button,
+textarea {
+  outline: none;
+  border: none;
+  font-family: inherit;
+}
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.todo {
+  width: 1200px;
+  max-height: 100%;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  &__sidebar {
+    background: #f1f1f1;
+    width: 30%;
+    border-right: 1px dashed #c7c7c7;
+    overflow: auto;
+    padding: 30px 20px;
+  }
+  &__tasks {
+    width: 70%;
+    background: #fff;
+    overflow: auto;
+    padding: 3em 5em;
+  }
+  &__list {
+    $selfList: &;
+
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    li {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0.5rem;
+      cursor: pointer;
+
+      span {
+        line-height: 25px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        i {
+          margin-left: 0.5rem;
+          background: #d1d0d0;
+          display: inline-flex;
+          padding: 0 0.25rem;
+          font-style: normal;
+        }
+      }
+    }
+    &__add {
+      margin-top: 2em;
+      opacity: 0.5;
+      transition: all 0.4s ease-in-out;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &__active {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      &:hover #{$selfList}__closeSvg {
+        opacity: 0.3;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    &__iconWraper {
+      width: 25px;
+      height: 25px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-right: 0.5rem;
+    }
+    &__allTask {
+      margin-bottom: 2em;
+    }
+    &__icon {
+      display: flex;
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+    }
+    &__closeSvg {
+      margin-left: auto;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+.add_list {
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  &__popup {
+    textarea {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      width: 100%;
+      padding: 0.5rem;
+      max-width: 100%;
+      min-width: 100%;
+      height: 50px;
+      resize: none;
+    }
+  }
+  &__colors {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+    span {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        transform: translateY(-2.5px);
+      }
+      &.active {
+        transform: translateY(-2.5px);
+      }
+    }
+  }
+  &__button__add {
+    width: 80%;
+    display: block;
+    margin: auto;
+    background: #42b883;
+    padding: 0.5rem 0;
+    color: #fff;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background: darken($color: #42b883, $amount: 10);
+    }
+  }
+}
+.tasks {
+  h2 {
+    color: rgb(100, 196, 237);
+    font-size: 2.25rem;
+    cursor: pointer;
+    span {
+      margin-left: 0.5rem;
+      svg {
+        fill: #000;
+        vertical-align: middle;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        width: 12px;
+        height: 12px;
+      }
+    }
+    &:hover {
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+  h3 {
+    color: #cacaca;
+    font-size: 2.5rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 2em;
+  }
+  &__outer {
+    display: flex;
+    flex-wrap: wrap;
+    &__item {
+      display: flex;
+      width: 100%;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      .checkbox {
+        position: relative;
+        margin-right: 1rem;
+        label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+          border: 2px solid #e8e8e8;
+          transition: all 0.3s ease-in-out;
+          border-radius: 100%;
+
+          cursor: pointer;
+          svg {
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            path {
+              stroke: #b2b2b2;
+            }
+          }
+          &:hover {
+            background: #f2f2f2;
+            svg {
+              opacity: 1;
+            }
+          }
+        }
+        input {
+          opacity: 0;
+          position: absolute;
+          z-index: -1;
+          &:checked {
+            + label {
+              background: #4dd599;
+              border-color: #4dd599;
+              svg {
+                opacity: 1;
+                path {
+                  stroke: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+      textarea {
+        margin: 0;
+        flex: 1;
+        resize: none;
+      }
+    }
+    &__form {
+      width: 100%;
+      display: flex;
+      &__input {
+        width: 100%;
+      }
+      &__add {
+        display: flex;
+        align-items: center;
+        color: #ccc;
+        i {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+          margin-right: 0.3rem;
+
+          svg {
+            path {
+              stroke: #ccc;
+            }
+          }
+        }
+        cursor: pointer;
+      }
+      &__input {
+        textarea {
+          resize: none;
+          width: 100%;
+          height: 50px;
+          border: 1px solid #ccc;
+          padding: 0.5rem;
+        }
+      }
+      &__buttons {
+        display: flex;
+        button {
+          padding: 0.5rem 0;
+          width: 25%;
+          min-width: 100px;
+          color: #fff;
+          border-radius: 4px;
+          transition: all 0.4s ease-in-out;
+          cursor: pointer;
+          &:first-of-type {
+            margin-right: 0.5rem;
+          }
+        }
+
+        .add {
+          background: rgb(66, 184, 131);
+          &:hover {
+            background: darken(rgb(66, 184, 131), 3);
+          }
+          &:disabled {
+            background: #ccc;
+            cursor: default;
+          }
+        }
+        .cancel {
+          background: #ccc;
+          &:hover {
+            background: darken(#ccc, 3);
+          }
+          &:active {
+            background: darken(#ccc, 10);
+          }
+        }
+      }
+    }
+    &__edit {
+      width: 100%;
+      &__inner {
+        display: flex;
+        align-items: center;
+        textarea {
+          border: 1px solid #c7c7c7;
+          resize: vertical;
+        }
+        textarea,
+        p {
+          margin: 0;
+          width: 95%;
+          font-size: 1rem;
+        }
+        svg {
+          margin-left: 0.5rem;
+          width: 13px;
+          height: 13px;
+          opacity: 0.3;
+          cursor: pointer;
+        }
+        &:hover {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
